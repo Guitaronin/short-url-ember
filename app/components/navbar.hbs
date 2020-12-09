@@ -1,0 +1,21 @@
+<nav class="navbar navbar-expand navbar-light bg-light" aria-label="Second navbar example">
+  <div class="container">
+    <span class="navbar-brand h1 my-0">ShortURL</span>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="main-nav">
+      <ul class="navbar-nav me-auto">
+
+        <LinkTo @route='index' @tagName='li' class="nav-item">
+          <LinkTo @route='index' class="nav-link">Home</LinkTo>
+        </LinkTo>
+
+        <LinkTo @route='top' @tagName='li' class="nav-item">
+          <LinkTo @route='top' class="nav-link">Top 100</LinkTo>
+        </LinkTo>
+      </ul>
+    </div>
+  </div>
+</nav>
