@@ -12,20 +12,16 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Facebook</td>
-        <td>https://facebook.com</td>
-        <td>15</td>
-        <td>http://shorturl.com/1</td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Twitter</td>
-        <td>https://twitter.com</td>
-        <td>10</td>
-        <td>http://shorturl.com/2</td>
-      </tr>
+      {{!-- TODO: Use links to show full_url and short_code? --}}
+      {{#each @model as |url index|}}
+        <tr>
+          <th scope="row">{{increment index}}</th>
+          <td>{{url.title}}</td>
+          <td>{{url.full_url}}</td>
+          <td>{{url.click_count}}</td>
+          <td>{{url.short_code}}</td>
+        </tr>
+      {{/each}}
     </tbody>
   </table>
 </div>
