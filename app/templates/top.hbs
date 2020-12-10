@@ -3,23 +3,32 @@
 
   <table class="table table-striped">
     <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Title</th>
-        <th scope="col">URL</th>
-        <th scope="col">Accesses registered</th>
-        <th scope="col">Short URL</th>
+      <tr class="d-flex">
+        <th scope="col" class="col-1">#</th>
+        <th scope="col" class="col-3">Title</th>
+        <th scope="col" class="col-4">URL</th>
+        <th scope="col" class="col-3">Short URL</th>
+        <th scope="col" class="col-1">Accesses</th>
       </tr>
     </thead>
     <tbody>
-      {{!-- TODO: Use links to show full_url and short_code? --}}
       {{#each @model as |url index|}}
-        <tr>
-          <th scope="row">{{increment index}}</th>
-          <td>{{url.title}}</td>
-          <td>{{url.full_url}}</td>
-          <td>{{url.click_count}}</td>
-          <td>{{url.short_code}}</td>
+        <tr class="d-flex">
+          <th scope="row" class="col-1">
+            {{increment index}}
+          </th>
+          <td class="col-3">
+            <span class="d-block text-truncate" title="{{url.title}}">{{url.title}}</span>
+          </td>
+          <td class="col-4">
+            <span class="d-block text-truncate" title="{{url.full_url}}">{{url.full_url}}</span>
+          </td>
+          <td class="col-3">
+            <ShortLink @shortCode={{url.short_code}} />
+          </td>
+          <td class="col-1">
+            {{url.click_count}}
+          </td>
         </tr>
       {{/each}}
     </tbody>
