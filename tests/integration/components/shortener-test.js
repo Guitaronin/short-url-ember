@@ -3,18 +3,15 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
 
-module('Integration | Component | navbar', function(hooks) {
+module('Integration | Component | shortener', function(hooks) {
   setupRenderingTest(hooks);
 
   test('it renders', async function(assert) {
     // Set any properties with this.set('myProperty', 'value');
     // Handle any actions with this.set('myAction', function(val) { ... });
 
-    await render(hbs`<Navbar />`);
-    const textContent = this.element.textContent.trim();
+    await render(hbs`<Shortener />`);
 
-    assert.ok(textContent.includes('ShortURL'));
-    assert.ok(textContent.includes('Home'));
-    assert.ok(textContent.includes('Top 100'));
+    assert.ok(this.element.textContent.trim().includes('Paste the URL'));
   });
 });
