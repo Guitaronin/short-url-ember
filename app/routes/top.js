@@ -1,11 +1,11 @@
 import Route from '@ember/routing/route';
+import { inject as service } from '@ember/service';
 
 export default class TopRoute extends Route {
-  async model() {
-    // TODO: Extract URL
-    const response = await fetch('http://localhost:3000/');
-    const { urls } = await response.json();
+  @service store;
 
-    return urls;
+  async model() {
+    this.store.unloadAll('url');
+    return this.store.findAll('url', { reload: true });
   }
 }
