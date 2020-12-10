@@ -23,6 +23,10 @@ module.exports = function(environment) {
     }
   };
 
+  ENV.API = {
+    host: 'http://localhost:3000'
+  };
+
   if (environment === 'development') {
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;

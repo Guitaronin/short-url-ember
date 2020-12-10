@@ -1,5 +1,6 @@
 import RESTAdapter from '@ember-data/adapter/rest';
+import config from 'short-url-ember/config/environment';
 
 export default class ApplicationAdapter extends RESTAdapter {
-  host = 'http://localhost:3000';
+  host = config.API.host;
 }
