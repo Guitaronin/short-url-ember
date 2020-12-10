@@ -1,0 +1,25 @@
+<div id="shortener" class="row">
+  <div class="col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+    <form {{on "submit" this.shortenUrl}}>
+      <label for="url" class="h4 text-white">Paste the URL</label>
+      <div class="input-group mb-3">
+        <Input id="url" @value={{this.url}} class="form-control p-4 {{if this.invalid 'is-invalid'}}" placeholder="https://facebook.com"
+          aria-label="URL to shorten" aria-describedby="shorten"/>
+        <div class="input-group-append">
+          <button class="btn btn-primary" type="submit" id="shorten">Shorten</button>
+        </div>
+        {{#if this.invalid }}
+          <div class="invalid-feedback invalid-feedback alert alert-danger text-center h3" >
+            {{this.invalid}}
+          </div>
+        {{/if}}
+      </div>
+    </form>
+
+    {{#if this.shortUrl }}
+      <div class="alert alert-success text-center h4">
+        {{this.shortUrl}}
+      </div>
+    {{/if}}
+  </div>
+</div>
