@@ -1,35 +1,49 @@
-import Component from '@glimmer/component';
+import Component from "@glimmer/component";
 import { tracked } from "@glimmer/tracking";
-import { action } from '@ember/object';
-import { inject as service } from '@ember/service';
+import { action } from "@ember/object";
+import { inject as service } from "@ember/service";
+import validateFormat from "ember-validators/format";
+import { NotFoundError, InvalidError } from "@ember-data/adapter/error";
 
 export default class ShortenerComponent extends Component {
   @service store;
 
-  @tracked url = '';
-  @tracked shortUrl = '';
-  @tracked invalid = '';
+  @tracked url = "";
+  @tracked shortUrl = "";
+  @tracked invalid = "";
+  invalidUrlMessage = "Please enter a valid url. Don't forget to include https:// or http://. Ex: https://facebook.com";
 
   @action
   shortenUrl(event) {
-    console.log('sending request');
     event.preventDefault();
-    this.shortUrl = '';
-    this.invalid = '';
 
-    const new_url = this.store.createRecord('url', { full_url: this.url });
+    this.shortUrl = "";
+    this.invalid = "";
 
-    new_url
-      .save()
-      .then((d) => {
-        console.log(d);
-        this.url = '';
-        this.shortUrl = `https://localhost:3000/${d.short_code}`;
-      })
-      .catch((e) => {
-        console.log('error', e)
-        // TODO: Validate status code
-        this.invalid = "Please enter a valid url. Don't forget to include https:// or http://. Ex: https://facebook.com";
-      });
+    if (validateFormat(this.url, { type: "url" }) === true) {
+      let newUrl = this.store.createRecord("url", { full_url: this.url });
+
+      newUrl
+        .save()
+        .then((url) => {
+          this.url = "";
+          this.shortUrl = url.short_code;
+        })
+        .catch((error) => {
+          if (error instanceof InvalidError) {
+            this.invalid = this.invalidUrlMessage;
+            return;
+          }
+
+          if (error instanceof NotFoundError) {
+            this.invalid = "Cannot contact the server";
+            return;
+          }
+
+          this.invalid = "Cannot process the request";
+        });
+    } else {
+      this.invalid = this.invalidUrlMessage;
+    }
   }
 }

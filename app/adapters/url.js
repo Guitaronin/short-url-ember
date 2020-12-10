@@ -1,5 +1,5 @@
 import ApplicationAdapter from './application';
-import { InvalidError } from '@ember-data/adapter/error';
+import { NotFoundError, InvalidError } from '@ember-data/adapter/error';
 
 export default class UrlAdapter extends ApplicationAdapter {
   urlForFindAll() {
@@ -13,6 +13,10 @@ export default class UrlAdapter extends ApplicationAdapter {
   handleResponse(status, headers, payload) {
     if (422 === status) {
       return new InvalidError([{full_url: payload.errors}]);
+    }
+
+    if (status === 404) {
+      return new NotFoundError();
     }
 
     return payload;
