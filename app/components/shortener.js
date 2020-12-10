@@ -9,7 +9,7 @@ export default class ShortenerComponent extends Component {
   @service store;
 
   @tracked url = "";
-  @tracked shortUrl = "";
+  @tracked shortCode = "";
   @tracked invalid = "";
   invalidUrlMessage = "Please enter a valid url. Don't forget to include https:// or http://. Ex: https://facebook.com";
 
@@ -17,7 +17,7 @@ export default class ShortenerComponent extends Component {
   shortenUrl(event) {
     event.preventDefault();
 
-    this.shortUrl = "";
+    this.shortCode = "";
     this.invalid = "";
 
     if (validateFormat(this.url, { type: "url" }) === true) {
@@ -27,7 +27,7 @@ export default class ShortenerComponent extends Component {
         .save()
         .then((url) => {
           this.url = "";
-          this.shortUrl = url.short_code;
+          this.shortCode = url.short_code;
         })
         .catch((error) => {
           if (error instanceof InvalidError) {

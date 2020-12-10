@@ -16,9 +16,9 @@
       </div>
     </form>
 
-    {{#if this.shortUrl }}
+    {{#if this.shortCode }}
       <div class="alert alert-success text-center h4">
-        {{this.shortUrl}}
+        <ShortLink @shortCode={{this.shortCode}} />
       </div>
     {{/if}}
   </div>
